@@ -4,7 +4,7 @@ import java.io.*;
 /**
 * A class containing Breath First Search (BFS) algorithms.
 * @author Celia Busquets Quilis.
-* @version 1.2, 05-12-2018.
+* @version 1.5, 11-12-2018.
 */
 
 public class BFS{
@@ -12,13 +12,8 @@ public class BFS{
 private Graph graph;
 private int[] color;
 private Vertex[] nodeOrder; // For mode 3, which order the algorithm visits the nodes.
-private List<Integer> waitingList;
+private List<Integer> waitingList; // A list containing the nodes that are going to be visited next (acording to the node being colored currelty).
 private boolean[] visited;
-
-// private int vertices; // Not needed anymore because the amount of verticecs is visited.length already.
-private int lowerbound;
-private int upperbound;
-
 
 /**
 * Default constructor that stores the amount of vertices.
@@ -55,9 +50,12 @@ public void coloringOrder(){
   while (!waitingList.isEmpty()){
     nodeOrder[nodeIndex] = this.graph.getVertex(waitingList.get(0));
     addToWaitingList(waitingList.get(0));
+    visited[waitingList.get(0)] = true;
     waitingList.remove(0);
     nodeIndex++;
   }
+  findIsolatedNodes(nodeIndex);
+
 }
 
 public void printSolutions(){
@@ -69,6 +67,11 @@ public void printSolutions(){
 
 }
 
+/**
+* A method to check the edges of the node being colored.
+* @param vertexIndex is the index/"name" of the vertex, helps to locate it on the Adjacency Matrix.
+*/
+
 public void addToWaitingList(int vertexIndex){
   int[][] adjacencyMatrix = this.graph.getAdjMatrix();
   for (int j = 0; j < adjacencyMatrix[0].length; j++){
@@ -79,14 +82,21 @@ public void addToWaitingList(int vertexIndex){
   }
 }
 
-
 /**
-* A method that finds the chromatic number.
-* @param lowerbound is the lower limit of colors needed.
-* @param upperbound is the upper limit of colors needed.
+* A method that adds visits the isolated nodes of the graph.
+* @param nodeIndex is the position in the array nodeOrder in which we store the first isolated node.
 */
-// public void computeChromNum(int aLowerbound, int anUpperbound){
-//   this.upperbound = anUpperbound;
-//   this.lowerbound = aLowerbound;
-// }
+
+public void findIsolatedNodes(int nodeIndex){
+  int newNodeIndex = nodeIndex;
+  for (int i = 0; i < visited.length; i++){
+    if (visited[i] == false){
+      nodeOrder[newNodeIndex] = this.graph.getVertex(i);
+      newNodeIndex++;
+    }
+  }
+
+}
+
+
 }
