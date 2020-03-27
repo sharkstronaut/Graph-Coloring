@@ -1,3 +1,14 @@
-# Graph Coloring Project
+# Project 1-1: Graph Colouring
 
-Project 1.1
+This program reads in a small graph form a text file and then computes the chromatic number, or if this is deemed too computationally intensive - generates lower and upper bounds on the chromatic number. 
+
+
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+Git
+Java
+Some Text Editor (Notepad++, Atoms, Sublime Text, Jedit...).
+
