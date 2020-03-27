@@ -1,2 +1,3 @@
-# project1-1
-Project
+# Graph Coloring Project
+
+Project 1.1
